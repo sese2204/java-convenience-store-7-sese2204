@@ -1,17 +1,20 @@
 package store.domain;
 
+import java.time.LocalDate;
+
 public class Product {
     private String name;
     private int price;
     private int promotionQuantity;
     private int normalQuantity;
+    private Promotion promotion;
 
-
-    public Product(String name, int price, int promotionQuantity, int normalQuantity) {
+    public Product(String name, int price, int promotionQuantity, int normalQuantity, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.promotionQuantity = promotionQuantity;
         this.normalQuantity = normalQuantity;
+        this.promotion = promotion;
     }
 
     public void removeStock(int orderQuantity) {
@@ -22,6 +25,10 @@ public class Product {
             promotionQuantity = 0;
             normalQuantity -= orderQuantity - promotionQuantity;
         }
+    }
+
+    public boolean isPromotionAvailable(LocalDate date) {
+        return !date.isBefore(promotion.getStartDate()) && !date.isAfter(promotion.getEndDate());
     }
     //TODO: 검증 로직
 }
