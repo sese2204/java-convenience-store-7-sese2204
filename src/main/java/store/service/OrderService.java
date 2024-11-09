@@ -1,6 +1,7 @@
 package store.service;
 
 import camp.nextstep.edu.missionutils.DateTimes;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -26,6 +27,27 @@ public class OrderService {
         Map<String, Integer> orderItems = parseOrderInput(orderInput);
         validateQuantityAvailable(orderItems);
         return new Order(orderItems, isMembershipApplied, DateTimes.now());
+    }
+
+    public boolean shouldRecommendAdditionalPurchase(String productName, int quantity, LocalDate localDate) {
+        Product product = productRepository.findByName(productName).get();
+        if (!product.isPromotionAvailable(localDate) || quantity < product.getPromotionQuantity()) {
+            return false;
+        }
+
+        int promotionUnit = product.getPromotion().getBuyCount() + 1;
+        int remainder = quantity % promotionUnit;
+        return remainder == product.getPromotion().getBuyCount();
+    }
+
+    public int GetNonPromotionalPurchase(String productName, int quantity) {
+        Product product = productRepository.findByName(productName).get();
+
+        if (quantity >= product.getPromotionQuantity()){
+            int giftQuantity = product.getPromotionQuantity() / (product.getPromotion().getBuyCount() + 1);
+            return quantity - giftQuantity * (product.getPromotion().getBuyCount() + 1);
+        }
+        return 0;
     }
 
     private void addPromotionItems(Order order) {
