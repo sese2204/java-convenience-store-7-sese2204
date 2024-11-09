@@ -15,8 +15,8 @@ public class ProductRepository {
         return products;
     }
 
-    public void porcessOrder(Order order) {
-        for (Map.Entry<String, Integer> orderItem : order.getOrderItems().entrySet()){
+    public void processOrderItems(Map<String, Integer> orderItems) {
+        for (Map.Entry<String, Integer> orderItem : orderItems.entrySet()){
             removeQuantityFromProduct(orderItem.getKey(), orderItem.getValue());
         }
     }

@@ -31,8 +31,20 @@ public class Product {
         return !date.isBefore(promotion.getStartDate()) && !date.isAfter(promotion.getEndDate());
     }
 
+    public boolean isQuantityAvailable(int orderQuantity) {
+        return orderQuantity <= promotionQuantity + normalQuantity;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public int getPromotionQuantity(){
+        return promotionQuantity;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
     }
     //TODO: 검증 로직
 }
