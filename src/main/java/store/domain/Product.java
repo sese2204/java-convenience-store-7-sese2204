@@ -17,7 +17,7 @@ public class Product {
         this.promotion = promotion;
     }
 
-    public void removeStock(int orderQuantity) {
+    public void removeQuantity(int orderQuantity) {
         if (orderQuantity <= promotionQuantity) {
             promotionQuantity -= orderQuantity;
         }
@@ -29,6 +29,10 @@ public class Product {
 
     public boolean isPromotionAvailable(LocalDate date) {
         return !date.isBefore(promotion.getStartDate()) && !date.isAfter(promotion.getEndDate());
+    }
+
+    public String getName() {
+        return name;
     }
     //TODO: 검증 로직
 }
