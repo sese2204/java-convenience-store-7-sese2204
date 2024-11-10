@@ -32,7 +32,7 @@ public class OrderService {
 
     public boolean shouldRecommendAdditionalPurchase(String productName, int quantity, LocalDate localDate) {
         Product product = productRepository.findByName(productName).get();
-        if (!product.isPromotionAvailable(localDate)) {
+        if (!product.isPromotionAvailable(localDate) || quantity >= product.getPromotionQuantity()) {
             return false;
         }
 

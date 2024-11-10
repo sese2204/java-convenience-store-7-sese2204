@@ -98,7 +98,7 @@ class OrderServiceTest {
         // when/then
         assertThat(orderService.shouldRecommendAdditionalPurchase("콜라", 2, currentDate)).isTrue(); // 2개 구매 시 1개 더 사면 1개 증정
         assertThat(orderService.shouldRecommendAdditionalPurchase("콜라", 3, currentDate)).isFalse(); // 이미 2+1 완성
-        assertThat(orderService.shouldRecommendAdditionalPurchase("콜라", 1, currentDate)).isFalse(); // 프로모션 적용 불가능
+        assertThat(orderService.shouldRecommendAdditionalPurchase("콜라", 11, currentDate)).isFalse(); // 프로모션 적용 불가능
     }
 
     @Test
