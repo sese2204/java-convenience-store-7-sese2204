@@ -25,6 +25,9 @@ public class Product {
     }
 
     public boolean isPromotionAvailable(LocalDate date) {
+        if (promotion == null){
+            return false;
+        }
         return !date.isBefore(promotion.getStartDate()) && !date.isAfter(promotion.getEndDate());
     }
 
