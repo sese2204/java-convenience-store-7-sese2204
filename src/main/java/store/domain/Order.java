@@ -10,12 +10,13 @@ public class Order {
     private static final int MAX_MEMBERSHIP_DISCOUNT = 8000;
 
     private Map<String, Integer> orderItems;
-    private Map<String, Integer> pormotionGiftItems;
+    private Map<String, Integer> promotionGiftItems;
     private boolean isMembershipApplied;
     private final LocalDateTime orderDate;
 
     public Order(Map<String, Integer> orderItems, boolean isMembershipApplied, LocalDateTime orderDate) {
         this.orderItems = new LinkedHashMap<>(orderItems);
+        this.promotionGiftItems = new LinkedHashMap<>();
         this.isMembershipApplied = isMembershipApplied;
         this.orderDate = orderDate;
     }
@@ -24,8 +25,8 @@ public class Order {
         return orderItems;
     }
 
-    public Map<String, Integer> getPormotionGiftItems() {
-        return pormotionGiftItems;
+    public Map<String, Integer> getPromotionGiftItems() {
+        return promotionGiftItems;
     }
 
     public LocalDate getOrderDate() {
@@ -42,6 +43,6 @@ public class Order {
     }
 
     public void addPromotionGiftItem(String item, int quantity) {
-        pormotionGiftItems.put(item, quantity);
+        promotionGiftItems.put(item, quantity);
     }
 }
