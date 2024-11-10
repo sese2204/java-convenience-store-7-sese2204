@@ -6,8 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Order {
-    private static final int MEMBERSHIP_DISCOUNT_RATE = 30;
-    private static final int MAX_MEMBERSHIP_DISCOUNT = 8000;
 
     private Map<String, Integer> orderItems;
     private Map<String, Integer> promotionGiftItems;
