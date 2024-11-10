@@ -15,7 +15,7 @@ public class Receipt {
     public Receipt(ProductRepository productRepository, Order order) {
         this.productRepository = productRepository;
         this.order = order;
-        this.totalQuantity = calculateTotalAmount()
+        this.totalQuantity = calculateTotalAmount();
         this.totalAmount = calculateTotalAmount();
         //this.promotionDiscount = calculatePromotionDiscount();
         //this.membershipDiscount = calculateMembershipDiscount();
