@@ -1,5 +1,6 @@
 package store.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -7,8 +8,12 @@ import java.util.Optional;
 public class ProductRepository {
     private List<Product> products;
 
-    public ProductRepository(List<Product> products) {
-        this.products = products;
+    public ProductRepository() {
+        this.products = new ArrayList<>();
+    }
+
+    public void add(Product product) {
+        products.add(product);
     }
 
     public List<Product> getProducts() {

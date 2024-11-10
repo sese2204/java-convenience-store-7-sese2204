@@ -9,12 +9,9 @@ public class Product {
     private int normalQuantity;
     private Promotion promotion;
 
-    public Product(String name, int price, int promotionQuantity, int normalQuantity, Promotion promotion) {
+    public Product(String name, int price) {
         this.name = name;
         this.price = price;
-        this.promotionQuantity = promotionQuantity;
-        this.normalQuantity = normalQuantity;
-        this.promotion = promotion;
     }
 
     public void removeQuantity(int orderQuantity) {
@@ -39,12 +36,32 @@ public class Product {
         return name;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public int getNormalQuantity(){
+        return normalQuantity;
+    }
+
     public int getPromotionQuantity(){
         return promotionQuantity;
     }
 
     public Promotion getPromotion() {
         return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
+
+    public void setPromotionQuantity(int promotionQuantity) {
+        this.promotionQuantity = promotionQuantity;
+    }
+
+    public void setNormalQuantity(int normalQuantity) {
+        this.normalQuantity = normalQuantity;
     }
     //TODO: 검증 로직
 }
