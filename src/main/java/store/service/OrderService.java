@@ -25,13 +25,14 @@ public class OrderService {
 
     public Order createOrder(String orderInput, boolean isMembershipApplied){
         Map<String, Integer> orderItems = parseOrderInput(orderInput);
+        //TODO: 상품 존재 여부 검증
         validateQuantityAvailable(orderItems);
         return new Order(orderItems, isMembershipApplied, DateTimes.now());
     }
 
     public boolean shouldRecommendAdditionalPurchase(String productName, int quantity, LocalDate localDate) {
         Product product = productRepository.findByName(productName).get();
-        if (!product.isPromotionAvailable(localDate) || quantity < product.getPromotionQuantity()) {
+        if (!product.isPromotionAvailable(localDate)) {
             return false;
         }
 
