@@ -22,7 +22,7 @@ public class OrderController {
         this.orderService = new OrderService(productRepository);
         this.inputView = new InputView();
         this.productOutputView = new ProductOutputView();
-        this.receiptOutputView = new ReceiptOutputView();
+        this.receiptOutputView = new ReceiptOutputView(productRepository);
     }
 
     public void run(){
@@ -33,7 +33,7 @@ public class OrderController {
         handleMembership(order);
         orderService.processOrder(order);
         Receipt receipt = new Receipt(productRepository, order);
-        //TODO: 영수증 출력
+        receiptOutputView.printReceipt(order, receipt);
         //TODO: 쇼핑 계속 할지
     }
 
