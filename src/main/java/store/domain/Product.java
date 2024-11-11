@@ -3,8 +3,8 @@ package store.domain;
 import java.time.LocalDate;
 
 public class Product {
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
     private int promotionQuantity;
     private int normalQuantity;
     private Promotion promotion;

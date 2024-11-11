@@ -7,7 +7,7 @@ import java.util.Optional;
 import store.error.ErrorMessage;
 
 public class ProductRepository {
-    private List<Product> products;
+    private final List<Product> products;
 
     public ProductRepository() {
         this.products = new ArrayList<>();
