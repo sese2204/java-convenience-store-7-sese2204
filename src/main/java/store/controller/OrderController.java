@@ -1,6 +1,5 @@
 package store.controller;
 
-import camp.nextstep.edu.missionutils.DateTimes;
 import java.util.Map;
 import store.domain.Order;
 import store.domain.ProductRepository;
@@ -11,11 +10,11 @@ import store.view.ProductOutputView;
 import store.view.ReceiptOutputView;
 
 public class OrderController {
-    private ProductRepository productRepository;
-    private OrderService orderService;
-    private InputView inputView;
-    private ProductOutputView productOutputView;
-    private ReceiptOutputView receiptOutputView;
+    private final ProductRepository productRepository;
+    private final OrderService orderService;
+    private final InputView inputView;
+    private final ProductOutputView productOutputView;
+    private final ReceiptOutputView receiptOutputView;
 
     public OrderController(ProductRepository productRepository) {
         this.productRepository = productRepository;

@@ -12,7 +12,7 @@ import store.domain.ProductRepository;
 
 public class OrderService {
     private static final Pattern ORDER_PATTERN = Pattern.compile("\\[(.*?)-(\\d+)\\]");
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public OrderService(ProductRepository productRepository) {
         this.productRepository = productRepository;
