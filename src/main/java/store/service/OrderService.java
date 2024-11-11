@@ -25,7 +25,7 @@ public class OrderService {
 
     public Order createOrder(String orderInput, boolean isMembershipApplied){
         Map<String, Integer> orderItems = parseOrderInput(orderInput);
-        //TODO: 상품 존재 여부 검증
+        validItemsExist(orderItems);
         validateQuantityAvailable(orderItems);
         return new Order(orderItems, isMembershipApplied, DateTimes.now());
     }
@@ -86,6 +86,13 @@ public class OrderService {
         }
 
         return orderItems;
+    }
+
+    private void validItemsExist(Map<String, Integer> orderItems) {
+        for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
+            Product product = productRepository.findByName(entry.getKey())
+                    .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
+        }
     }
 
     private void validateQuantityAvailable(Map<String, Integer> orderItems) {

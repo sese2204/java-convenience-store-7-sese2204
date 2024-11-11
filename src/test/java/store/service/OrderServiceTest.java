@@ -75,6 +75,18 @@ class OrderServiceTest {
     }
 
     @Test
+    @DisplayName("목록에 없는 입력이 들어오면 예외가 발생해야 한다")
+    void createOrder_ShouldThrowException_WhenProductNotExist() {
+        // given
+        String orderInput = "[제로콜라-20]"; // 존재하지 않는 상품
+
+        // when/then
+        assertThatThrownBy(() -> orderService.createOrder(orderInput, false))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.");
+    }
+
+    @Test
     @DisplayName("프로모션 상품 구매 시 증정 상품이 추가되어야 한다")
     void processOrder_ShouldAddPromotionItems() {
         // given
