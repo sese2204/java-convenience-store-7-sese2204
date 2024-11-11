@@ -13,7 +13,7 @@ public class InputView {
     public static final String ASK_MEMBERSHIP_APPLY = "멤버십 할인을 받으시겠습니까? (Y/N)";
     public static final String ASK_CONTINUE_SHOPPING = "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
 
-    public String requestOrder() {
+    public String requestOrderInput() {
         System.out.println(REQUEST_ORDER);
         return Console.readLine();
     }
