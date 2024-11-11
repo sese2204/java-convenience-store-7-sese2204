@@ -5,21 +5,24 @@ import store.domain.Order;
 import store.domain.ProductRepository;
 import store.domain.Receipt;
 import store.service.OrderService;
-import store.view.InputView;
+import store.view.YesNoInputView;
+import store.view.OrderInputView;
 import store.view.ProductOutputView;
 import store.view.ReceiptOutputView;
 
 public class OrderController {
     private final ProductRepository productRepository;
     private final OrderService orderService;
-    private final InputView inputView;
+    private final YesNoInputView yesNoInputView;
+    private final OrderInputView orderInputView;
     private final ProductOutputView productOutputView;
     private final ReceiptOutputView receiptOutputView;
 
     public OrderController(ProductRepository productRepository) {
         this.productRepository = productRepository;
         this.orderService = new OrderService(productRepository);
-        this.inputView = new InputView();
+        this.yesNoInputView = new YesNoInputView();
+        this.orderInputView = new OrderInputView();
         this.productOutputView = new ProductOutputView();
         this.receiptOutputView = new ReceiptOutputView(productRepository);
     }
@@ -34,7 +37,7 @@ public class OrderController {
             orderService.processOrder(order);
             Receipt receipt = new Receipt(productRepository, order);
             receiptOutputView.printReceipt(order, receipt);
-        }while (inputView.readContinueShopping());
+        }while (yesNoInputView.readContinueShopping());
     }
 
     private void validateNonPromotionalPurchase(Order order) {
@@ -48,14 +51,14 @@ public class OrderController {
 
     private void handleNonPromotionalPurchase(Order order, String productName, int nonPromotionalPurchase) {
         if (nonPromotionalPurchase > 0){
-            if(!inputView.noticeNonPromotionalPurchase(productName, nonPromotionalPurchase)){
+            if(!yesNoInputView.noticeNonPromotionalPurchase(productName, nonPromotionalPurchase)){
                 order.updateQuantity(productName, -nonPromotionalPurchase);
             }
         }
     }
 
     private void handleMembership(Order order) {
-        if(inputView.readMembershipApply()){
+        if(yesNoInputView.readMembershipApply()){
             order.applyMembership();
         }
     }
@@ -72,7 +75,7 @@ public class OrderController {
     }
 
     private void tryAdditionalPurchase(Order order, String productName) {
-        if (inputView.recommendAdditionalPurchase(productName)) {
+        if (yesNoInputView.recommendAdditionalPurchase(productName)) {
             order.updateQuantity(productName, 1);
         }
     }
@@ -80,7 +83,7 @@ public class OrderController {
     private Order getOrderWithRetry(){
         while(true){
             try{
-                String input = inputView.requestOrderInput();
+                String input = orderInputView.requestOrderInput();
                 return orderService.createOrder(input, false);
             }catch(IllegalArgumentException e){
                 System.out.println(e.getMessage());
