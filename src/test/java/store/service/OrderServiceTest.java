@@ -4,11 +4,9 @@ import camp.nextstep.edu.missionutils.DateTimes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.Optional;
 import store.domain.Order;
 import store.domain.Product;
 import store.domain.ProductRepository;

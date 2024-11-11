@@ -1,7 +1,6 @@
 package store.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 
 public class InputView {
