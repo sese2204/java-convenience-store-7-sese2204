@@ -41,10 +41,10 @@ public class OrderService {
         return remainder == product.getPromotion().getBuyCount();
     }
 
-    public int GetNonPromotionalPurchase(String productName, int quantity) {
+    public int getNonPromotionalPurchase(String productName, int quantity) {
         Product product = productRepository.findByName(productName).get();
 
-        if (quantity >= product.getPromotionQuantity()){
+        if (quantity > product.getPromotionQuantity()){
             int giftQuantity = product.getPromotionQuantity() / (product.getPromotion().getBuyCount() + 1);
             return quantity - giftQuantity * (product.getPromotion().getBuyCount() + 1);
         }
