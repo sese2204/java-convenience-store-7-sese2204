@@ -1,7 +1,6 @@
 package store.domain;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Receipt {
     private static final double MEMBERSHIP_DISCOUNT_RATE = 0.3;
@@ -9,7 +8,7 @@ public class Receipt {
 
     private final ProductRepository productRepository;
     private final Order order;
-    private final int totalQuantity;
+
     private final int totalAmount;
     private final int promotionDiscount;
     private final int membershipDiscount;
@@ -18,15 +17,10 @@ public class Receipt {
     public Receipt(ProductRepository productRepository, Order order) {
         this.productRepository = productRepository;
         this.order = order;
-        this.totalQuantity = calculateTotalQuantity();
         this.totalAmount = calculateTotalAmount();
         this.promotionDiscount = calculatePromotionDiscount();
         this.membershipDiscount = calculateMembershipDiscount();
         this.finalAmount = totalAmount - promotionDiscount - membershipDiscount;
-    }
-
-    public int getTotalQuantity() {
-        return totalQuantity;
     }
 
     public int getTotalAmount() {
@@ -43,14 +37,6 @@ public class Receipt {
 
     public int getFinalAmount() {
         return finalAmount;
-    }
-
-    private int calculateTotalQuantity() {
-        return order.getOrderItems().entrySet().stream()
-                .mapToInt(entry -> {
-                    return entry.getValue();
-                })
-                .sum();
     }
 
     private int calculateTotalAmount() {

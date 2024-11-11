@@ -1,11 +1,9 @@
 package store.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -87,17 +85,5 @@ class ProductTest {
 
         // then
         assertThat(isAvailable).isFalse();
-    }
-
-    @Test
-    @DisplayName("프로모션이 설정되지 않은 상품은 NullPointerException이 발생해야 한다")
-    void isPromotionAvailable_ShouldThrowException_WhenPromotionIsNull() {
-        // given
-        Product productWithoutPromotion = new Product("물", 500);
-        LocalDate date = LocalDate.now();
-
-        // when/then
-        assertThatThrownBy(() -> productWithoutPromotion.isPromotionAvailable(date))
-                .isInstanceOf(NullPointerException.class);
     }
 }
