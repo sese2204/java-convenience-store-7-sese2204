@@ -90,7 +90,7 @@ public class OrderService {
 
     private void validItemsExist(Map<String, Integer> orderItems) {
         for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
-            Product product = productRepository.findByName(entry.getKey())
+            productRepository.findByName(entry.getKey())
                     .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
         }
     }
