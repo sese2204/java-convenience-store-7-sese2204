@@ -35,9 +35,12 @@ public class Order {
         return isMembershipApplied;
     }
 
-    public Order updateQuantity(String item, int quantity) {
-        orderItems.replace(item, quantity);
-        return this;
+    public void applyMembership() {
+        isMembershipApplied = true;
+    }
+
+    public void updateQuantity(String productName, int quantity) {
+        orderItems.compute(productName, (k, currentQuantity) -> currentQuantity + quantity);
     }
 
     public void addPromotionGiftItem(String item, int quantity) {

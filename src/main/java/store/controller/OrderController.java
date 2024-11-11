@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.DateTimes;
 import java.util.Map;
 import store.domain.Order;
 import store.domain.ProductRepository;
+import store.domain.Receipt;
 import store.service.OrderService;
 import store.view.InputView;
 import store.view.ProductOutputView;
@@ -29,6 +30,11 @@ public class OrderController {
         Order order = getOrderWithRetry();
         validateAdditionalPurchase(order);
         validateNonPromotionalPurchase(order);
+        handleMembership(order);
+        orderService.processOrder(order);
+        Receipt receipt = new Receipt(productRepository, order);
+        //TODO: 영수증 출력
+        //TODO: 쇼핑 계속 할지
     }
 
     private void validateNonPromotionalPurchase(Order order) {
@@ -45,6 +51,12 @@ public class OrderController {
             if(!inputView.noticeNonPromotionalPurchase(productName, nonPromotionalPurchase)){
                 order.updateQuantity(productName, -nonPromotionalPurchase);
             }
+        }
+    }
+
+    private void handleMembership(Order order) {
+        if(inputView.readMembershipApply()){
+            order.applyMembership();
         }
     }
 
