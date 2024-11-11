@@ -26,22 +26,23 @@ public class OrderController {
     }
 
     public void run(){
-        productOutputView.printProducts(productRepository.getProducts());
-        Order order = getOrderWithRetry();
-        validateAdditionalPurchase(order);
-        validateNonPromotionalPurchase(order);
-        handleMembership(order);
-        orderService.processOrder(order);
-        Receipt receipt = new Receipt(productRepository, order);
-        receiptOutputView.printReceipt(order, receipt);
-        //TODO: 쇼핑 계속 할지
+        do {
+            productOutputView.printProducts(productRepository.getProducts());
+            Order order = getOrderWithRetry();
+            validateAdditionalPurchase(order);
+            validateNonPromotionalPurchase(order);
+            handleMembership(order);
+            orderService.processOrder(order);
+            Receipt receipt = new Receipt(productRepository, order);
+            receiptOutputView.printReceipt(order, receipt);
+        }while (inputView.readContinueShopping());
     }
 
     private void validateNonPromotionalPurchase(Order order) {
         for (Map.Entry<String, Integer> entry : order.getOrderItems().entrySet()){
             String productName = entry.getKey();
             int quantity = entry.getValue();
-            int nonPromotionalPurchase = orderService.getNonPromotionalPurchase(productName, quantity);
+            int nonPromotionalPurchase = orderService.getNonPromotionalPurchase(productName, quantity, order.getOrderDate());
             handleNonPromotionalPurchase(order, productName, nonPromotionalPurchase);
         }
     }
