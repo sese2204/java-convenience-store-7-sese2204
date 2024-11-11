@@ -2,12 +2,12 @@ package store.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.regex.Pattern;
+import store.error.ErrorMessage;
 
 public class InputView {
     private static final String YES = "Y";
     private static final String NO = "N";
     private static final Pattern ORDER_PATTERN = Pattern.compile("^(\\[([^-]+-\\d+)\\],)*\\[([^-]+-\\d+)\\]$");
-    private static final String ERROR_INVALID_RESPONSE = "[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.";
 
     public static final String REQUEST_ORDER = "구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])";
     public static final String RECOMMEND_ADDITIONAL_PURCHASE = "현재 %s은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)";
@@ -50,7 +50,7 @@ public class InputView {
 
     private void validateOrderFormat(String input) {
         if (!ORDER_PATTERN.matcher(input).matches()) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
         validateEachOrderItem(input);
     }
@@ -72,7 +72,7 @@ public class InputView {
 
     private void validateBrackets(String item) {
         if (!item.startsWith("[") || !item.endsWith("]")) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
     }
 
@@ -83,14 +83,14 @@ public class InputView {
     private String[] splitOrderContent(String content) {
         String[] parts = content.split("-");
         if (parts.length != 2) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
         return parts;
     }
 
     private void validateProductName(String name) {
         if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class InputView {
             int quantity = parseQuantity(quantityStr);
             validatePositiveQuantity(quantity);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ public class InputView {
 
     private void validatePositiveQuantity(int quantity) {
         if (quantity <= 0) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
     }
 
@@ -127,7 +127,7 @@ public class InputView {
 
     private void validateYesNo(String input) {
         if (!YES.equals(input) && !NO.equals(input)) {
-            throw new IllegalArgumentException(ERROR_INVALID_RESPONSE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_RESPONSE.getMessage());
         }
     }
 }

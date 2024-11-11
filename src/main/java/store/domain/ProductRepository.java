@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import store.error.ErrorMessage;
 
 public class ProductRepository {
     private List<Product> products;
@@ -34,7 +35,7 @@ public class ProductRepository {
     private Product findProductByName(String productName) {
         return findByName(productName)
                 .orElseThrow(() -> new IllegalArgumentException(
-                        "[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
+                        ErrorMessage.PRODUCT_NOT_FOUND.getMessage()));
     }
 
     public Optional<Product> findByName(String productName) {

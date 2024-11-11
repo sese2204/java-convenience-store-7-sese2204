@@ -66,5 +66,4 @@ public class Product {
     public void setNormalQuantity(int normalQuantity) {
         this.normalQuantity = normalQuantity;
     }
-    //TODO: 검증 로직
 }

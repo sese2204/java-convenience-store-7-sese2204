@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import store.domain.Order;
 import store.domain.Product;
 import store.domain.ProductRepository;
+import store.error.ErrorMessage;
 
 public class OrderService {
     private static final Pattern ORDER_PATTERN = Pattern.compile("\\[(.*?)-(\\d+)\\]");
@@ -91,7 +92,7 @@ public class OrderService {
     private void validItemsExist(Map<String, Integer> orderItems) {
         for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
             productRepository.findByName(entry.getKey())
-                    .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
+                    .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.PRODUCT_NOT_FOUND.getMessage()));
         }
     }
 
@@ -99,7 +100,7 @@ public class OrderService {
         for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
             Product product = productRepository.findByName(entry.getKey()).get();
             if (!product.isQuantityAvailable(entry.getValue())) {
-                throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(ErrorMessage.OUT_OF_STOCK.getMessage());
             }
         }
     }
