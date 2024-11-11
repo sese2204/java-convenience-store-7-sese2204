@@ -1,5 +1,6 @@
 package store.service;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -117,9 +118,9 @@ class OrderServiceTest {
     @DisplayName("프로모션이 적용되지 않는 구매 수량을 올바르게 계산해야 한다")
     void getNonPromotionalPurchase_ShouldCalculateCorrectly() {
         // when/then
-        assertThat(orderService.GetNonPromotionalPurchase("콜라", 11)).isEqualTo(2); // 9개는 2+1로 처리, 2개는 일반 구매
-        assertThat(orderService.GetNonPromotionalPurchase("콜라", 3)).isEqualTo(0); // 모두 2+1로 처리
-        assertThat(orderService.GetNonPromotionalPurchase("콜라", 2)).isEqualTo(0); // 프로모션 수량 미달
+        assertThat(orderService.getNonPromotionalPurchase("콜라", 11, DateTimes.now().toLocalDate())).isEqualTo(2); // 9개는 2+1로 처리, 2개는 일반 구매
+        assertThat(orderService.getNonPromotionalPurchase("콜라", 12, DateTimes.now().toLocalDate())).isEqualTo(3); // 모두 2+1로 처리
+        assertThat(orderService.getNonPromotionalPurchase("콜라", 2, DateTimes.now().toLocalDate())).isEqualTo(0); // 프로모션 수량 미달
     }
 
     @Test
