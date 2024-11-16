@@ -1,7 +1,13 @@
 package store;
 
+import store.controller.OrderController;
+import store.controller.RepositoryController;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        RepositoryController repositoryController = new RepositoryController();
+        repositoryController.set();
+        OrderController orderController = new OrderController(repositoryController.getProductRepository());
+        orderController.run();
     }
 }
